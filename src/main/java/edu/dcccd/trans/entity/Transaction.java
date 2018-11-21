@@ -1,6 +1,9 @@
 package edu.dcccd.trans.entity;
 
 import lombok.Data;
+import lombok.Generated;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -9,19 +12,24 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 @Data
+@Entity
+@Table(name = "TRANSACTION")
 public class Transaction {
-    private Long id;
-    private String time;
-    @NotNull
-    @NotEmpty
-    private String day;
-    @NotNull
-    @NotEmpty
-    private String description;
-    @NotNull
-    private BigDecimal amount;
-    @NotNull
-    private String type;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long id;
+   private String time;
+   @NotNull
+   @NotEmpty
+   private String day;
+   @NotNull
+   @NotEmpty
+   private String description;
+   @NotNull
+   @Column(precision = 7, scale = 2)
+   private BigDecimal amount;
+   @NotNull
+   private String type;
 
     public Transaction () { this.time = currentTime();}
 
